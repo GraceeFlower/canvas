@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=none">
+    <meta name="Keywords" content="Form">
+    <meta name="Description" content="Form demo">
+
+    <style>
+        .canvas{
+            margin: 50px;
+        }
+    </style>
+    <title>Canvas</title>
+</head>
+<body>
+    <div class="canvas">
+        <h1>CANVAS</h1>
+        <canvas id="myCanvas" width="300" height="200" style="border:1px solid #c3c3c3;">
+            您的浏览器不支持 HTML5 canvas 标签哦～
+        </canvas>
+
+        <canvas id="myCanvas2" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="myCanvas3" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+        
+        <canvas id="myCanvas4" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="myCanvas5" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="myCanvas6" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="myCanvas7" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="myCanvas8" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+        <canvas id="flash1" width="300" height="300" style="border:1px solid #c3c3c3;">
+        </canvas>
+
+
+
+    </div>
+        
+    <script>
+        function newCanvas1() {        
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.fillStyle = "#FF0000";
+            ctx.fillRect(25, 15, 150, 70);
+        }
+
+        function newCanvas2() {        
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(25, 15);
+            ctx.lineTo(150, 15);
+            ctx.lineTo(150, 75);
+            ctx.closePath();
+            ctx.stroke();
+        }
+
+        function newCanvas3() {
+            var c = document.getElementById("myCanvas");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(25, 15);
+            ctx.lineTo(150, 15);
+            ctx.lineTo(150, 75);
+            ctx.fillStyle = "#ff0000";
+            ctx.fill();
+        }
+
+        function newCanvas4() {
+            var c = document.getElementById("myCanvas");
+            if(!c.getContext) return;
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(50, 50, 20, 0, Math.PI, true);
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(150, 50, 20, 0, -Math.PI/2, false);
+            ctx.closePath();
+            ctx.stroke();
+
+            ctx.beginPath();
+            ctx.arc(50, 150, 20, -Math.PI/2, Math.PI/2);
+            ctx.fill();
+
+        }
+
+        function newCanvas5() {
+            var c = document.getElementById("myCanvas2");
+            if(!c.getContext) return;
+            var ctx = c.getContext("2d");
+            for(var i = 0; i < 6; i++)
+                for(var j = 0; j < 6; j++)
+                    {
+                        ctx.fillStyle = 'rgb(' + Math.floor(255-i*42.5) + ', 0' + ',' + Math.floor(255-j*42.5) + ')';
+                        ctx.fillRect(i*50, j*50, 50, 50);
+                    }
+        }
+
+        function randomInt(from, to) {
+            return parseInt(Math.random() * (to - from + 1) + from);
+        }
+        function newCanvas6() {
+            var c = document.getElementById("myCanvas3");
+            var ctx = c.getContext("2d");
+            for(var i = 0; i < 6; i++)
+                for(var j = 0; j < 6; j++) {
+                    ctx.strokeStyle = `rgb(${randomInt(0,255)}, ${randomInt(0,255)}, ${randomInt(0,255)})`;
+                    ctx. strokeRect(i*50, j*50, 47, 47);
+                }
+        }
+
+        // lineStyle lineCap 同理还有lineJoin=['round'扇形, 'bevel'矩形, 'miter'菱形]
+        function newCanvas7() {
+            var c = document.getElementById("myCanvas4");
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.moveTo(20, 20);
+            ctx.lineTo(50, 20);
+            ctx.lineWidth = 10;
+            ctx.stroke();
+
+            var lineCaps = ['butt', 'round', 'square'];
+            for(var i = 0; i < 3; i++) {
+                ctx.beginPath();
+                ctx.moveTo(80+i*30, 20);
+                ctx.lineTo(80+i*30, 60);
+                ctx.lineWidth = 20;
+                ctx.lineCap = lineCaps[i];
+                ctx.stroke();
+            }
+            ctx.beginPath();
+            ctx.moveTo(60, 20);
+            ctx.lineTo(160, 20);
+
+            ctx.moveTo(60, 60);
+            ctx.lineTo(160, 60);
+
+            ctx.strokeStyle = "red";
+            ctx.lineWidth = 1;
+            ctx.stroke();
+
+            //lineDash虚线
+            ctx.beginPath();
+            ctx.setLineDash([20, 5]);//实线长度 虚线间隔
+            ctx.lineDashOffset = -0;//虚线间隔初始偏移量
+            ctx.strokeRect(5, 5, 290, 290);
+
+            // 文字编辑 textAlign: start, end, left, right, center; font; textBaseline: top, hanging, middle, alphabetic, ideographic, bottom; direction: inherit, ltr, rtl
+            ctx.font = "50px sans-serif";
+            ctx.fillText("阿花", 60, 120);
+            ctx.strokeText("Grace", 60, 180);
+        }
+
+        function newCanvas8() {
+            var c = document.getElementById("myCanvas5");
+            if(!c.getContext) return;
+            var ctx = c.getContext("2d");
+            var img = new Image();
+            img.onload = function() {
+                ctx.drawImage(img, 10, 10, 280, 150);
+            }
+            img.src = '../image/wx1.jpg';
+        }
+
+        //save
+        function newCanvas9() {
+            var c = document.getElementById('myCanvas6');
+            if (!c.getContext) return;
+            var ctx = c.getContext("2d");
+        
+            ctx.fillRect(0, 0, 150, 150);   // 使用默认设置绘制一个矩形
+            ctx.save();                  // 保存默认状态
+        
+            ctx.fillStyle = 'red';       // 在原有配置基础上对颜色做改变
+            ctx.fillRect(15, 15, 120, 120); // 使用新的设置绘制一个矩形
+        
+            ctx.save();                  // 保存当前状态
+            ctx.fillStyle = '#FFF';       // 再次改变颜色配置
+            ctx.fillRect(30, 30, 90, 90);   // 使用新的配置绘制一个矩形
+        
+            ctx.restore();               // 重新加载之前的颜色状态
+            ctx.fillRect(45, 45, 60, 60);   // 使用上一次的配置绘制一个矩形
+        
+            ctx.restore();               // 加载默认颜色配置
+            ctx.fillRect(60, 60, 30, 30);   // 使用加载的配置绘制一个矩形
+
+            ctx.beginPath();
+            ctx.arc(75, 225, 75, 0, 2*Math.PI);
+            ctx.fillStyle = 'yellowgreen';
+            ctx.fill();
+            ctx.save();
+
+            ctx.beginPath();
+            ctx.arc(75, 225, 60, 0, 2*Math.PI);
+            ctx.fillStyle = '#fff';
+            ctx.fill();
+
+            ctx.save();
+            ctx.beginPath();
+            ctx.fillStyle = 'yellow';
+            ctx.arc(75, 225, 45, 0, 2*Math.PI);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.restore();
+            ctx.arc(75, 225, 30, 0, 2*Math.PI);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.restore();
+            ctx.arc(75, 225, 15, 0, 2*Math.PI);
+            ctx.fill();
+
+        }
+
+        //restore和save 其次还有旋转只有一个rotate函数，参数只有一个就是angle
+        //可以配合save和restore使用 类似这种有变化的都最好可以save一下 ..transform矩阵等
+
+        function newCanvas10() {
+            var c = document.getElementById("myCanvas7");
+            if(!c.getContext) return;
+            var ctx = c.getContext("2d");
+
+            ctx.save();//这是记录坐标原点 记住translate的目标就是坐标原点
+            ctx.translate(100, 100);
+            ctx.strokeRect(0, 0, 100, 100);
+
+            ctx.save();
+            ctx.translate(10, 10);
+            ctx.strokeRect(0, 0, 100, 100);
+
+            ctx.restore();//恢复到上一个原点
+            ctx.translate(10, 10);
+            ctx.fillStyle = 'tomato';
+            ctx.fillRect(0, 0, 40, 40);
+
+            ctx.restore();//恢复到原点
+            ctx.translate(100, 100);
+            ctx.fillRect(0, 0, 10, 10);
+        }
+        //合成remix
+        function newCanvas11() {
+            var c = document.getElementById("myCanvas8");
+            if(!c.getContext) return;
+            var ctx = c.getContext("2d");
+            //var style = ['source-over', 'source-in', 'source-out', 'source-atop', 'destination-over', 
+            //'destination-in', 'destination-out', 'destination-atop', 'lighter', 'darken', 'lighten', 'xor', 'copy'];
+
+            ctx.fillStyle = "blue";
+            ctx.fillRect(0, 0, 50, 50);
+    
+            ctx.globalCompositeOperation = 'source-over'; //全局合成操作
+            ctx.fillStyle = "red";
+            ctx.fillRect(25, 25, 50, 50);
+            
+            ctx.fillStyle = "blue";
+            ctx.fillRect(80, 0, 50, 50);
+    
+            ctx.globalCompositeOperation = 'destination-atop';
+            ctx.fillStyle = "red";
+            ctx.fillRect(105, 25, 50, 50);
+
+            //会被后一个覆盖前面的fillRect
+
+            //裁剪特效 clip函数，只有前面的图形可以遮盖后面的
+            ctx.beginPath();
+            ctx.arc(20, 100, 100, 0, Math.PI );
+            ctx.clip();
+        
+            ctx.fillStyle = "pink";
+            ctx.fillRect(20, 100, 100, 100);
+        }
+
+        //动画init
+        let sun;
+        let earth;
+        let moon;
+        let ctx;
+        function newCanvas12() {
+            var c = document.getElementById("flash1");
+            if(!c.getContext) return;
+            ctx = c.getContext("2d");
+            sun = new Image();
+            earth = new Image();
+            moon = new Image();
+
+            sun.src = '../image/sun.jpeg';
+            earth.src = '../image/earth.png';
+            moon.src = '../image/moon.jpeg';
+
+            sun.onload = function() {
+                draw();
+            }
+        }
+        function draw() {
+            //清空画布
+            ctx.clearRect(0, 0, 300, 300);
+            //绘制太阳
+            ctx.drawImage(sun, 0, 0, 300, 300);
+            ctx.save();
+            ctx.translate(150, 150);
+
+            //绘制地球轨迹
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(255, 255, 0, .5)";
+            ctx.arc(0, 0, 100, 0, 2*Math.PI);
+            ctx.stroke();
+            
+            //绘制地球
+            let time = new Date();
+            ctx.rotate(2*Math.PI / 60*time.getSeconds() + 2*Math.PI / 60000*time.getMilliseconds());
+            ctx.translate(100, 0);
+            ctx.drawImage(earth, -10, -10, 20, 20);
+
+            //绘制月球轨道
+            ctx.beginPath();
+            ctx.strokeStyle = "rgba(255,255,255,.3)";
+            ctx.arc(0, 0, 40, 0, 2 * Math.PI);
+            ctx.stroke();
+        
+            //绘制月球
+            ctx.rotate(2 * Math.PI / 6 * time.getSeconds() + 2 * Math.PI / 6000 * time.getMilliseconds());
+            ctx.translate(40, 0);
+            ctx.drawImage(moon, -5, -5, 10, 10);
+            ctx.restore();
+        
+            requestAnimationFrame(draw);
+        }
+
+
+        newCanvas4();
+        newCanvas5();
+        newCanvas6();
+        newCanvas7();
+        newCanvas8();
+        newCanvas9();
+        newCanvas10();
+        newCanvas11();
+        newCanvas12();
+    </script>
+        
+</body>
+</html>
